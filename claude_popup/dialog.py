@@ -21,7 +21,7 @@ def show_question_dialog(questions: list) -> dict:
         or {"action": "cancel"} if user closes the window.
     """
     root = tk.Tk()
-    root.title("Claude Code - Question")
+    root.title("Claude Code - 提问")
     root.resizable(True, True)
 
     # Center on screen
@@ -66,7 +66,7 @@ def show_question_dialog(questions: list) -> dict:
 
     for qi, q in enumerate(questions):
         question_text = q.get("question", "")
-        header = q.get("header", f"Question {qi + 1}")
+        header = q.get("header", f"问题 {qi + 1}")
         options = q.get("options", [])
         multi = q.get("multiSelect", False)
 
@@ -141,9 +141,9 @@ def show_question_dialog(questions: list) -> dict:
         result["action"] = "cancel"
         root.destroy()
 
-    cancel_btn = ttk.Button(btn_frame, text="Cancel", command=_on_cancel)
+    cancel_btn = ttk.Button(btn_frame, text="取消", command=_on_cancel)
     cancel_btn.pack(side="right", padx=(5, 0))
-    submit_btn = ttk.Button(btn_frame, text="Submit", command=_on_submit)
+    submit_btn = ttk.Button(btn_frame, text="确认", command=_on_submit)
     submit_btn.pack(side="right")
 
     # Keyboard shortcuts
@@ -169,7 +169,7 @@ def show_permission_dialog(tool_name: str, tool_input: dict) -> dict:
         dict: {"allowed": True/False, "reason": "..."}
     """
     root = tk.Tk()
-    root.title("Claude Code - Permission Required")
+    root.title("Claude Code - 权限请求")
     root.resizable(False, False)
 
     root.update_idletasks()
@@ -188,15 +188,15 @@ def show_permission_dialog(tool_name: str, tool_input: dict) -> dict:
     header_frame.pack(fill="x", padx=16, pady=(16, 8))
 
     ttk.Label(
-        header_frame, text="⏳ Permission Request", font=("", 12, "bold")
+        header_frame, text="权限请求", font=("", 12, "bold")
     ).pack(anchor="w")
 
     # Tool info
-    info_frame = ttk.LabelFrame(root, text="Tool", padding=10)
+    info_frame = ttk.LabelFrame(root, text="工具", padding=10)
     info_frame.pack(fill="both", expand=True, padx=16, pady=8)
 
     ttk.Label(
-        info_frame, text=f"Claude wants to use:", font=("", 9)
+        info_frame, text=f"Claude 想要使用以下工具:", font=("", 9)
     ).pack(anchor="w")
     ttk.Label(
         info_frame, text=tool_name, font=("", 11, "bold"), foreground="blue"
@@ -206,7 +206,7 @@ def show_permission_dialog(tool_name: str, tool_input: dict) -> dict:
     if tool_input:
         param_text = json.dumps(tool_input, indent=2, ensure_ascii=False)
         if len(param_text) > 500:
-            param_text = param_text[:500] + "\n... (truncated)"
+            param_text = param_text[:500] + "\n... (已截断)"
         param_box = tk.Text(info_frame, height=6, width=50, wrap=tk.WORD)
         param_box.insert("1.0", param_text)
         param_box.configure(state="disabled")
@@ -224,9 +224,9 @@ def show_permission_dialog(tool_name: str, tool_input: dict) -> dict:
         result["allowed"] = False
         root.destroy()
 
-    deny_btn = ttk.Button(btn_frame, text="Deny", command=_deny)
+    deny_btn = ttk.Button(btn_frame, text="拒绝", command=_deny)
     deny_btn.pack(side="right", padx=(5, 0))
-    allow_btn = ttk.Button(btn_frame, text="Allow", command=_allow)
+    allow_btn = ttk.Button(btn_frame, text="允许", command=_allow)
     allow_btn.pack(side="right")
 
     root.bind("<Escape>", lambda e: _deny())
