@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "Your Name", email = "you@example.com"}
+    {name = "Zeal", email = "1703258727@qq.com"}
 ]
 keywords = ["claude-code", "popup", "gui", "tkinter"]
 classifiers = [
